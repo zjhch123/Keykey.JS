@@ -12,12 +12,6 @@ module.exports = {
       '@assets': paths.appAssets,
     }
   },
-  output: {
-    path: paths.appBuildPath,
-    publicPath: '/',
-    filename: 'index.js',
-    chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js'
-  },
   module: {
     rules: [
       {

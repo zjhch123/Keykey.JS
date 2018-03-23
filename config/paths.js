@@ -15,7 +15,7 @@ module.exports = {
   appBuildPath: resolveApp('build'),
   appDevEntry: path.join(appSrc, 'App.js'),
   appProdEntry: path.join(appSrc, 'Prod.js'),
-  appIndexJS: path.join(appSrc, 'App.js'),
+  appIndexJS: path.join(appSrc, 'index.js'),
   appCSS: path.join(appSrc, 'css'),
   appJS: path.join(appSrc, 'js'),
   appAssets: path.join(appSrc, 'assets'),

@@ -65,5 +65,7 @@ keykeyjs.launch({
   targetDOM: document, // 设置监听时焦点所在的dom
   reducers: [reducers], // 可以传入reducers数组,
   // reducer: reducer  // 也可以传入单一reducer
+  preventDefaultKeys: ['ArrowRight'], // 当event.key的值等于'ArrowRight'时，会preventDefault
+  //preventDefaultKeys: function() {} // 也可以传入函数, 返回值必须为数组
 })
 ```

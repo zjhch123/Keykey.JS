@@ -4,6 +4,10 @@ const delay = (delay) => {
   })
 }
 
+const isFunc = (arg) => Object.prototype.toString.call(arg) === '[object Function]'
+
+const isNumber = (arg) => Object.prototype.toString.call(arg) === '[object Number]'
+
 export default {
-  delay
+  delay, isFunc, isNumber
 }

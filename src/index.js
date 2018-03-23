@@ -1,10 +1,21 @@
 import store from './store'
 import util from './util'
+
 const pressedKey = {}
+const status = {
+  listenFlag: true
+}
 
-let listenFlag = true
-
-const keydownFunc = (event) => { 
+const keydownFunc = (preventDefaultKeys) => (event) => { 
+  let preventKeys
+  if (util.isFunc(preventDefaultKeys)) {
+    preventKeys = preventDefaultKeys()
+  } else {
+    preventKeys = [].concat(preventDefaultKeys)
+  }
+  if (preventKeys.indexOf(event.key) !== -1) {
+    event.preventDefault()
+  } 
   pressedKey[event.key] = {
     key: event.key,
     event
@@ -13,14 +24,14 @@ const keydownFunc = (event) => {
 
 const keyupFunc = (event) => {
   delete pressedKey[event.key]
-  if (listenFlag) {
+  if (status.listenFlag) {
     store.dispatch({ type: `${event.key} -`, payload: event })
   }
 }
 
 const startListen = () => {
   const judge = () => {
-    if (listenFlag) {
+    if (status.listenFlag) {
       for (let i in pressedKey) {
         const key = pressedKey[i]
         store.dispatch({ type: `${key.key} +`, payload: key.event })
@@ -32,25 +43,26 @@ const startListen = () => {
 }
 
 const stopListen = (delay) => { 
-  listenFlag = false 
-  if (Object.prototype.toString.call(delay) === '[object Number]') {
+  status.listenFlag = false 
+  if (util.isNumber(delay)) {
     util.delay(delay).then(_ => continueListen())
   }
-  if (Object.prototype.toString.call(delay) === '[object Function]') {
+  if (util.isFunc(delay)) {
     delay(continueListen)
   }
 }
 const continueListen = () => { 
-  listenFlag = true  
+  status.listenFlag = true  
 }
 
 const launch = ({
   targetDOM = document,
   reducer = () => {},
-  reducers = []
+  reducers = [],
+  preventDefaultKeys = []
 }) => {
   store.register(reducers.concat(reducer))
-  targetDOM.addEventListener('keydown', keydownFunc)
+  targetDOM.addEventListener('keydown', keydownFunc(preventDefaultKeys))
   targetDOM.addEventListener('keyup', keyupFunc)
   startListen()
 }

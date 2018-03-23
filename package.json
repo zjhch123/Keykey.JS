@@ -1,12 +1,12 @@
 {
   "name": "keykeyjs",
-  "version": "1.0.6",
+  "version": "1.0.9",
   "description": "基于redux设计思想的web端键盘按键监听工具",
   "scripts": {
     "build": "webpack --optimize-minimize --config ./config/webpack.prod.js",
     "dev": "webpack-dev-server --config ./config/webpack.dev.js --open"
   },
-  "main": "src/index.js",
+  "main": "build/index.js",
   "keywords": [
     "keykey",
     "keyboard",

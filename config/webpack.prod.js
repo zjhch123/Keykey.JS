@@ -6,8 +6,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const config = require('./webpack.base.js');
 
 config.entry = {
-  index: paths.appProdEntry
+  index: paths.appIndexJS
 };
+
+config.output = {
+  library: 'keykeyjs',
+  libraryTarget: 'umd',
+  umdNamedDefine: true,
+  path: paths.appBuildPath,
+  publicPath: '/',
+  filename: 'index.js',
+  chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js'
+};
+
 
 config.plugins.push(
   new CleanWebpackPlugin(['build'], {
